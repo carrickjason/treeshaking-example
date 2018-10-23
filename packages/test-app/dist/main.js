@@ -681,7 +681,7 @@
             firstWeekContainsDate: 1
         }
     };
-    var MILLISECONDS_IN_DAY = 864e5;
+    var MILLISECONDS_IN_DAY$1 = 864e5;
     function startOfUTCISOWeek(dirtyDate, dirtyOptions) {
         if (arguments.length < 1) throw new TypeError("1 argument required, but only " + arguments.length + " present");
         var weekStartsOn = 1;
@@ -706,7 +706,7 @@
         var startOfThisYear = startOfUTCISOWeek(fourthOfJanuaryOfThisYear, dirtyOptions);
         if (date.getTime() >= startOfNextYear.getTime()) return year + 1; else if (date.getTime() >= startOfThisYear.getTime()) return year; else return year - 1;
     }
-    var MILLISECONDS_IN_WEEK = 6048e5;
+    var MILLISECONDS_IN_WEEK$2 = 6048e5;
     function getUTCISOWeek(dirtyDate, dirtyOptions) {
         if (arguments.length < 1) throw new TypeError("1 argument required, but only " + arguments.length + " present");
         var date = toDate(dirtyDate, dirtyOptions);
@@ -718,7 +718,7 @@
             fourthOfJanuary.setUTCHours(0, 0, 0, 0);
             return startOfUTCISOWeek(fourthOfJanuary, dirtyOptions);
         }(date, dirtyOptions).getTime();
-        return Math.round(diff / MILLISECONDS_IN_WEEK) + 1;
+        return Math.round(diff / MILLISECONDS_IN_WEEK$2) + 1;
     }
     function startOfUTCWeek(dirtyDate, dirtyOptions) {
         if (arguments.length < 1) throw new TypeError("1 argument required, but only " + arguments.length + " present");
@@ -755,7 +755,7 @@
         var startOfThisYear = startOfUTCWeek(firstWeekOfThisYear, dirtyOptions);
         if (date.getTime() >= startOfNextYear.getTime()) return year + 1; else if (date.getTime() >= startOfThisYear.getTime()) return year; else return year - 1;
     }
-    var MILLISECONDS_IN_WEEK$1 = 6048e5;
+    var MILLISECONDS_IN_WEEK$3 = 6048e5;
     function getUTCWeek(dirtyDate, dirtyOptions) {
         if (arguments.length < 1) throw new TypeError("1 argument required, but only " + arguments.length + " present");
         var date = toDate(dirtyDate, dirtyOptions);
@@ -772,7 +772,7 @@
             firstWeek.setUTCHours(0, 0, 0, 0);
             return startOfUTCWeek(firstWeek, dirtyOptions);
         }(date, dirtyOptions).getTime();
-        return Math.round(diff / MILLISECONDS_IN_WEEK$1) + 1;
+        return Math.round(diff / MILLISECONDS_IN_WEEK$3) + 1;
     }
     var dayPeriodEnum_midnight = "midnight", dayPeriodEnum_noon = "noon", dayPeriodEnum_morning = "morning", dayPeriodEnum_afternoon = "afternoon", dayPeriodEnum_evening = "evening", dayPeriodEnum_night = "night";
     var formatters = {
@@ -991,7 +991,7 @@
                 date.setUTCMonth(0, 1);
                 date.setUTCHours(0, 0, 0, 0);
                 var difference = timestamp - date.getTime();
-                return Math.floor(difference / MILLISECONDS_IN_DAY) + 1;
+                return Math.floor(difference / MILLISECONDS_IN_DAY$1) + 1;
             }(date, options);
             if ("Do" === token) return localize.ordinalNumber(dayOfYear, {
                 unit: "dayOfYear"

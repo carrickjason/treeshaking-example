@@ -562,6 +562,37 @@ function validateTimezone (hours, minutes) {
 }
 
 /**
+ * @name addMilliseconds
+ * @category Millisecond Helpers
+ * @summary Add the specified number of milliseconds to the given date.
+ *
+ * @description
+ * Add the specified number of milliseconds to the given date.
+ *
+ * @param {Date|String|Number} date - the date to be changed
+ * @param {Number} amount - the amount of milliseconds to be added
+ * @param {Options} [options] - the object with options. See [Options]{@link https://date-fns.org/docs/Options}
+ * @param {0|1|2} [options.additionalDigits=2] - passed to `toDate`. See [toDate]{@link https://date-fns.org/docs/toDate}
+ * @returns {Date} the new date with the milliseconds added
+ * @throws {TypeError} 2 arguments required
+ * @throws {RangeError} `options.additionalDigits` must be 0, 1 or 2
+ *
+ * @example
+ * // Add 750 milliseconds to 10 July 2014 12:45:30.000:
+ * var result = addMilliseconds(new Date(2014, 6, 10, 12, 45, 30, 0), 750)
+ * //=> Thu Jul 10 2014 12:45:30.750
+ */
+function addMilliseconds (dirtyDate, dirtyAmount, dirtyOptions) {
+  if (arguments.length < 2) {
+    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present')
+  }
+
+  var timestamp = toDate(dirtyDate, dirtyOptions).getTime();
+  var amount = toInteger(dirtyAmount);
+  return new Date(timestamp + amount)
+}
+
+/**
  * @name isValid
  * @category Common Helpers
  * @summary Is the given date valid?
@@ -1126,7 +1157,7 @@ var locale = {
   }
 };
 
-var MILLISECONDS_IN_DAY = 86400000;
+var MILLISECONDS_IN_DAY$1 = 86400000;
 
 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
@@ -1141,7 +1172,7 @@ function getUTCDayOfYear (dirtyDate, dirtyOptions) {
   date.setUTCHours(0, 0, 0, 0);
   var startOfYearTimestamp = date.getTime();
   var difference = timestamp - startOfYearTimestamp;
-  return Math.floor(difference / MILLISECONDS_IN_DAY) + 1
+  return Math.floor(difference / MILLISECONDS_IN_DAY$1) + 1
 }
 
 // This function will be a part of public API when UTC function will be implemented.
@@ -1206,7 +1237,7 @@ function startOfUTCISOWeekYear (dirtyDate, dirtyOptions) {
   return date
 }
 
-var MILLISECONDS_IN_WEEK = 604800000;
+var MILLISECONDS_IN_WEEK$2 = 604800000;
 
 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
@@ -1221,7 +1252,7 @@ function getUTCISOWeek (dirtyDate, dirtyOptions) {
   // Round the number of days to the nearest integer
   // because the number of milliseconds in a week is not constant
   // (e.g. it's different in the week of the daylight saving time clock shift)
-  return Math.round(diff / MILLISECONDS_IN_WEEK) + 1
+  return Math.round(diff / MILLISECONDS_IN_WEEK$2) + 1
 }
 
 // This function will be a part of public API when UTC function will be implemented.
@@ -1328,7 +1359,7 @@ function startOfUTCWeekYear (dirtyDate, dirtyOptions) {
   return date
 }
 
-var MILLISECONDS_IN_WEEK$1 = 604800000;
+var MILLISECONDS_IN_WEEK$3 = 604800000;
 
 // This function will be a part of public API when UTC function will be implemented.
 // See issue: https://github.com/date-fns/date-fns/issues/376
@@ -1343,7 +1374,7 @@ function getUTCWeek (dirtyDate, dirtyOptions) {
   // Round the number of days to the nearest integer
   // because the number of milliseconds in a week is not constant
   // (e.g. it's different in the week of the daylight saving time clock shift)
-  return Math.round(diff / MILLISECONDS_IN_WEEK$1) + 1
+  return Math.round(diff / MILLISECONDS_IN_WEEK$3) + 1
 }
 
 var dayPeriodEnum = {
@@ -2119,37 +2150,6 @@ var longFormatters = {
 };
 
 /**
- * @name addMilliseconds
- * @category Millisecond Helpers
- * @summary Add the specified number of milliseconds to the given date.
- *
- * @description
- * Add the specified number of milliseconds to the given date.
- *
- * @param {Date|String|Number} date - the date to be changed
- * @param {Number} amount - the amount of milliseconds to be added
- * @param {Options} [options] - the object with options. See [Options]{@link https://date-fns.org/docs/Options}
- * @param {0|1|2} [options.additionalDigits=2] - passed to `toDate`. See [toDate]{@link https://date-fns.org/docs/toDate}
- * @returns {Date} the new date with the milliseconds added
- * @throws {TypeError} 2 arguments required
- * @throws {RangeError} `options.additionalDigits` must be 0, 1 or 2
- *
- * @example
- * // Add 750 milliseconds to 10 July 2014 12:45:30.000:
- * var result = addMilliseconds(new Date(2014, 6, 10, 12, 45, 30, 0), 750)
- * //=> Thu Jul 10 2014 12:45:30.750
- */
-function addMilliseconds (dirtyDate, dirtyAmount, dirtyOptions) {
-  if (arguments.length < 2) {
-    throw new TypeError('2 arguments required, but only ' + arguments.length + ' present')
-  }
-
-  var timestamp = toDate(dirtyDate, dirtyOptions).getTime();
-  var amount = toInteger(dirtyAmount);
-  return new Date(timestamp + amount)
-}
-
-/**
  * @name subMilliseconds
  * @category Millisecond Helpers
  * @summary Subtract the specified number of milliseconds from the given date.
@@ -2614,6 +2614,42 @@ function format(dirtyDate, dirtyFormatStr, dirtyOptions) {
 function cleanEscapedString(input) {
   return input.match(escapedStringRegExp)[1].replace(doubleQuoteRegExp, "'")
 }
+
+/**
+ * @name isDate
+ * @category Common Helpers
+ * @summary Is the given value a date?
+ *
+ * @description
+ * Returns true if the given value is an instance of Date. The function works for dates transferred across iframes.
+ *
+ * @param {*} value - the value to check
+ * @param {Options} [options] - the object with options. Unused; present for FP submodule compatibility sake. See [Options]{@link https://date-fns.org/docs/Options}
+ * @returns {boolean} true if the given value is a date
+ * @throws {TypeError} 1 arguments required
+ *
+ * @example
+ * // For a valid date:
+ * var result = isDate(new Date())
+ * //=> true
+ *
+ * @example
+ * // For an invalid date:
+ * var result = isDate(new Date(NaN))
+ * //=> true
+ *
+ * @example
+ * // For some value:
+ * var result = isDate('2014-02-31')
+ * //=> false
+ *
+ * @example
+ * // For an object:
+ * var result = isDate({})
+ * //=> false
+ */
+
+// This file is generated automatically by `scripts/build/indices.js`. Please, don't change it.
 
 var TestD =
 /*#__PURE__*/
