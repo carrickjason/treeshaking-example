@@ -1,0 +1,35 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Dependency directories
+node_modules
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Mac specific stuff
+.DS_Store
+
+# Docker stuff
+jest_0
+
+# flow
+flow-typed
+
+# atom things
+.tern-project
+.vscode
+
+# Package specfic things
+*.tgz

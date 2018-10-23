@@ -1,0 +1,23 @@
+{
+  "name": "test-lib",
+  "version": "0.0.1",
+  "description": "A react component library to expiriment with treeshaking",
+  "module": "lib/test-lib.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "build:lib": "rollup --config"
+  },
+  "author": "Jason Carrick",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/runtime": "^7.1.2",
+    "date-fns": "1.29.0",
+    "react": "^16.5.2"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "sideEffects": false
+}
