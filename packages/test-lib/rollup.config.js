@@ -39,9 +39,7 @@ export default {
     replace({ 'process.env.NODE_ENV': '"production"' })
   ],
   context: 'window',
-  external (id) {
-    return !id.startsWith('\0') && !id.startsWith('.') && !id.startsWith('/')
-  },
+  external: ['react'],
   watch: {
     exclude: ['node_modules/**', '**/*.test.js'],
     clearScreen: false

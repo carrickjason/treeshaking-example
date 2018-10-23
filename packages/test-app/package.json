@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "date-fns": "2.0.0-alpha.23",
     "test-lib": "0.0.1"
   }
 }

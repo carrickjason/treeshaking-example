@@ -31,10 +31,10 @@ module.exports = {
     setImmediate: false
   },
   plugins: [
-    new CleanWebpackPlugin([path.resolve(__dirname, './dist')]),
-    new BundleAnalyzerPlugin({
-      openAnalyzer: false
-    })
+    new CleanWebpackPlugin([path.resolve(__dirname, './dist')])
+    // new BundleAnalyzerPlugin({
+    //   openAnalyzer: false
+    // })
   ],
   optimization: {
     minimizer: [
